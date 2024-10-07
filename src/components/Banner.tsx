@@ -1,3 +1,9 @@
 export default function Banner() {
-  return <div>Banner</div>;
+  return (
+    <>
+      <header>
+        <h1 className="">Nemya's Memory Card Game</h1>
+      </header>
+    </>
+  );
 }
