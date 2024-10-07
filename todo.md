@@ -2,8 +2,8 @@
 
 ## UI :
 
-- [ ] Add a banner and a footer
-- [ ] Add scoreboard
+- [x] Add a banner and a footer
+- [x] Add scoreboard
 - [ ] Add a grid
 - [ ] Add frames for the images
 - [ ] Mercury
