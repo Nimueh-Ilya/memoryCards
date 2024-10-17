@@ -3,8 +3,12 @@ import Footer from "./Footer";
 import GameCard from "./GameCard";
 
 export default function MainContainer() {
-  const endGame = () => {};
-  const increaseScore = () => {};
+  const endGame = () => {
+    console.log(2);
+  };
+  const increaseScore = () => {
+    console.log(1);
+  };
   return (
     <>
       <Banner></Banner>

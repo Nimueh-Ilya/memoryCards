@@ -27,16 +27,19 @@ export default function GameCard({
       setClicked(true);
     }
   };
-  async function getPokemon() {
-    return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(
-      (response) => response.json()
-    );
-  }
+
   useEffect(() => {
+    async function getPokemon() {
+      console.log("poo");
+
+      return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(
+        (response) => response.json()
+      );
+    }
     getPokemon().then((data) => {
       handlePokemonData(data);
     });
-  });
+  }, [pokemonName]);
   return (
     <>
       <button onClick={handleClick}>
