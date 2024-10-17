@@ -10,12 +10,12 @@ export default function MainContainer() {
       <Banner></Banner>
       <div className="grid grid-cols-3 grid-rows-3 gap-2">
         <GameCard
-          pokemonName="ditto"
+          pokemonName="pikachu"
           endGame={endGame}
           increaseScore={increaseScore}
         ></GameCard>
         <GameCard
-          pokemonName="ditto"
+          pokemonName="mewtwo"
           endGame={endGame}
           increaseScore={increaseScore}
         ></GameCard>
