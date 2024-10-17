@@ -4,13 +4,13 @@
 
 - [x] Add a banner and a footer
 - [x] Add scoreboard
-- [ ] Add a grid
+- [x] Add a grid
 - [ ] Add frames for the images
-- [ ] Mercury
+- [ ] Mercury???
 
 ## Game :
 
-- [ ] Implement scoreboard logic
+- [x] Implement scoreboard logic
 - [ ] Implement game logic
-- [ ] Fetch images
+- [x] Fetch images
 - [ ] Profit
