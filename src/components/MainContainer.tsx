@@ -3,6 +3,19 @@ import Footer from "./Footer";
 import GameCard from "./GameCard";
 
 export default function MainContainer() {
+  const shuffleArray = (arr: []) => {
+    let currentIndex = arr.length;
+
+    while (currentIndex != 0) {
+      const randomIndex: number = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [arr[currentIndex], arr[randomIndex]] = [
+        arr[randomIndex],
+        arr[currentIndex],
+      ];
+    }
+  };
   const endGame = () => {
     console.log(2);
   };
