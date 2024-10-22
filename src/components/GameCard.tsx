@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export default function GameCard({
   pokemonName,
   increaseScore,
   endGame,
+  shuffle,
+  cards,
 }: {
   pokemonName: string;
   increaseScore: () => void;
   endGame: () => void;
+  shuffle: (arr: ReactNode[]) => void;
+  cards: ReactNode[];
 }) {
   const [clicked, setClicked] = useState(false);
   const [pokemonData, setPokemonData] = useState<{
@@ -25,13 +29,12 @@ export default function GameCard({
     } else {
       increaseScore();
       setClicked(true);
+      shuffle(cards);
     }
   };
 
   useEffect(() => {
     async function getPokemon() {
-      console.log("poo");
-
       return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(
         (response) => response.json()
       );

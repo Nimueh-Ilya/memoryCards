@@ -1,63 +1,82 @@
+import { ReactNode, useEffect, useState } from "react";
 import Banner from "./Banner";
-import Footer from "./Footer";
 import GameCard from "./GameCard";
 
 export default function MainContainer() {
-  const shuffleArray = (arr: []) => {
-    let currentIndex = arr.length;
+  const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState(0);
+  const [cards, setCards] = useState<ReactNode[]>([]);
+  const handleHighscore = (newScore: number) => {
+    setHighscore(newScore);
+  };
+  const handleScore = () => {
+    setScore((prevScore) => {
+      if (++prevScore >= highscore) {
+        handleHighscore(prevScore);
+      }
+      return prevScore;
+    });
 
-    while (currentIndex != 0) {
-      const randomIndex: number = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
+    console.log(score);
+  };
+  useEffect(() => {
+    setCards([
+      <GameCard
+        key="pikachu"
+        pokemonName="pikachu"
+        endGame={endGame}
+        increaseScore={increaseScore}
+        shuffle={shuffleArray}
+        cards={cards}
+      />,
+      <GameCard
+        key="mewtwo"
+        pokemonName="mewtwo"
+        endGame={endGame}
+        increaseScore={increaseScore}
+        shuffle={shuffleArray}
+        cards={cards}
+      />,
+      <GameCard
+        key="ditto"
+        pokemonName="ditto"
+        endGame={endGame}
+        increaseScore={increaseScore}
+        shuffle={shuffleArray}
+        cards={cards}
+      />,
+    ]);
+  }, []);
 
-      [arr[currentIndex], arr[randomIndex]] = [
-        arr[randomIndex],
-        arr[currentIndex],
-      ];
-    }
+  const shuffleArray = () => {
+    setCards((prevCards) => {
+      const shuffledCards = [...prevCards];
+      let currentIndex = shuffledCards.length;
+
+      while (currentIndex !== 0) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [shuffledCards[currentIndex], shuffledCards[randomIndex]] = [
+          shuffledCards[randomIndex],
+          shuffledCards[currentIndex],
+        ];
+      }
+      return shuffledCards;
+    });
   };
   const endGame = () => {
     console.log(2);
   };
   const increaseScore = () => {
-    console.log(1);
+    handleScore();
   };
+
   return (
     <>
       <Banner></Banner>
-      <div className="grid grid-cols-3 grid-rows-3 gap-2">
-        <GameCard
-          pokemonName="pikachu"
-          endGame={endGame}
-          increaseScore={increaseScore}
-        ></GameCard>
-        <GameCard
-          pokemonName="mewtwo"
-          endGame={endGame}
-          increaseScore={increaseScore}
-        ></GameCard>
-        <GameCard
-          pokemonName="ditto"
-          endGame={endGame}
-          increaseScore={increaseScore}
-        ></GameCard>
-        <GameCard
-          pokemonName="ditto"
-          endGame={endGame}
-          increaseScore={increaseScore}
-        ></GameCard>
-        <GameCard
-          pokemonName="ditto"
-          endGame={endGame}
-          increaseScore={increaseScore}
-        ></GameCard>
-        <GameCard
-          pokemonName="ditto"
-          endGame={endGame}
-          increaseScore={increaseScore}
-        ></GameCard>
-      </div>
-      <Footer></Footer>
+      <div>Score:{score}</div>
+      <div>Highest Score : {highscore}</div>
+      <div className="grid grid-cols-3 grid-rows-3 gap-2">{cards}</div>
     </>
   );
 }
