@@ -6,12 +6,14 @@ export default function GameCard({
   endGame,
   shuffle,
   cards,
+  reset,
 }: {
   pokemonName: string;
   increaseScore: () => void;
   endGame: () => void;
   shuffle: (arr: ReactNode[]) => void;
   cards: ReactNode[];
+  reset: boolean;
 }) {
   const [clicked, setClicked] = useState(false);
   const [pokemonData, setPokemonData] = useState<{
@@ -19,38 +21,37 @@ export default function GameCard({
   }>({
     sprites: { front_default: "" },
   });
-  const handlePokemonData = (data: { sprites: { front_default: string } }) => {
-    setPokemonData(data);
-  };
+
   const handleClick = () => {
-    if (clicked === true) {
+    if (clicked) {
       endGame();
-      console.log("clicked it");
     } else {
-      increaseScore();
       setClicked(true);
+      increaseScore();
       shuffle(cards);
     }
   };
-
+  useEffect(() => {
+    console.log("poo");
+    setClicked(false);
+  }, [reset]);
   useEffect(() => {
     async function getPokemon() {
-      return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then(
-        (response) => response.json()
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
       );
+      const data = await response.json();
+      setPokemonData(data);
     }
-    getPokemon().then((data) => {
-      handlePokemonData(data);
-    });
+    getPokemon();
   }, [pokemonName]);
+
   return (
-    <>
-      <button onClick={handleClick}>
-        <div>
-          <img src={pokemonData.sprites.front_default} alt="" />
-          <p>{pokemonName}</p>
-        </div>
-      </button>
-    </>
+    <button onClick={handleClick}>
+      <div>
+        <img src={pokemonData.sprites.front_default} alt={pokemonName} />
+        <p>{pokemonName}</p>
+      </div>
+    </button>
   );
 }
